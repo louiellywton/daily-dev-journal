@@ -2,50 +2,50 @@ const chalk = require('chalk');
 
 function displayWelcome() {
   console.log(chalk.cyan(`
-╔═══════════════════════════════════════╗
-║        Daily Dev Journal              ║
-║   Track Your Development Journey      ║
-╚═══════════════════════════════════════╝
+=========================================
+        Daily Dev Journal              
+   Track Your Development Journey      
+=========================================
 `));
   
-  console.log(chalk.yellow('📚 Welcome to your personal development journal!'));
+  console.log(chalk.yellow('Welcome to your personal development journal!'));
   console.log(chalk.gray('Track your daily coding progress, mood, and achievements.\n'));
 }
 
 function displayStats(stats) {
-  console.log(chalk.cyan('\n📊 Development Statistics\n'));
-  console.log(chalk.blue('═'.repeat(50)));
+  console.log(chalk.cyan('\nDevelopment Statistics\n'));
+  console.log(chalk.blue('='.repeat(50)));
   
   // Summary
-  console.log(chalk.white('\n📈 Summary:'));
+  console.log(chalk.white('\nSummary:'));
   console.log(`  Days Tracked: ${chalk.green(stats.summary.totalDays)}`);
   console.log(`  Total Entries: ${chalk.green(stats.summary.totalEntries)}`);
   console.log(`  Current Streak: ${chalk.yellow(stats.summary.currentStreak)} days`);
   console.log(`  Longest Streak: ${chalk.yellow(stats.summary.longestStreak)} days`);
   
   // Time Analysis
-  console.log(chalk.white('\n⏰ Time Spent Coding:'));
+  console.log(chalk.white('\nTime Spent Coding:'));
   console.log(`  Total Hours: ${chalk.green(stats.timeSpent.total)}`);
   console.log(`  Daily Average: ${chalk.green(stats.timeSpent.dailyAverage)} hours`);
   console.log(`  Most Productive Day: ${chalk.green(stats.timeSpent.maxSingleDay)} hours`);
   
   // Productivity
-  console.log(chalk.white('\n🎯 Productivity:'));
+  console.log(chalk.white('\nProductivity:'));
   console.log(`  Average Level: ${chalk.green(stats.productivity.average)}/5`);
   console.log(`  Most Common: ${chalk.green(stats.productivity.mostCommon || 'N/A')}`);
   
   // Technologies
   if (stats.technologies.mostUsed.length > 0) {
-    console.log(chalk.white('\n💻 Top Technologies:'));
+    console.log(chalk.white('\nTop Technologies:'));
     stats.technologies.mostUsed.slice(0, 5).forEach(([tech, count], index) => {
-      const emoji = index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : '  ';
-      console.log(`  ${emoji} ${tech}: ${chalk.green(count)} times`);
+      const rank = index === 0 ? '1st' : index === 1 ? '2nd' : index === 2 ? '3rd' : `${index + 1}th`;
+      console.log(`  ${rank} ${tech}: ${chalk.green(count)} times`);
     });
   }
   
   // Mood Analysis
   if (stats.mood.mostCommon) {
-    console.log(chalk.white('\n😊 Mood Analysis:'));
+    console.log(chalk.white('\nMood Analysis:'));
     console.log(`  Most Common Mood: ${chalk.green(stats.mood.mostCommon)}`);
     
     // Show mood distribution
@@ -56,7 +56,7 @@ function displayStats(stats) {
   }
   
   // Patterns
-  console.log(chalk.white('\n📅 Patterns:'));
+  console.log(chalk.white('\nPatterns:'));
   if (stats.patterns.bestDayOfWeek) {
     console.log(`  Most Active Day: ${chalk.green(stats.patterns.bestDayOfWeek)}`);
   }
@@ -68,14 +68,14 @@ function displayStats(stats) {
   
   // Achievements
   if (stats.achievements.length > 0) {
-    console.log(chalk.white('\n🏆 Achievements:'));
+    console.log(chalk.white('\nAchievements:'));
     stats.achievements.forEach(achievement => {
       console.log(`  ${achievement.title}`);
       console.log(chalk.gray(`    ${achievement.description}`));
     });
   }
   
-  console.log(chalk.blue('\n' + '═'.repeat(50)));
+  console.log(chalk.blue('\n' + '='.repeat(50)));
   console.log(chalk.gray(`Generated: ${new Date(stats.generatedAt).toLocaleString()}`));
 }
 

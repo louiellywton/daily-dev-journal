@@ -13,7 +13,7 @@ class ReadmeUpdater {
   }
 
   async updateReadme() {
-    console.log('📝 Updating README statistics...');
+    console.log('Updating README statistics...');
     
     try {
       const stats = await this.analytics.generateStats(30);
@@ -36,19 +36,19 @@ class ReadmeUpdater {
       
       await fs.writeFile(this.readmePath, readmeContent);
       
-      console.log('✅ README updated successfully!');
+      console.log('README updated successfully!');
     } catch (error) {
-      console.error('❌ README update failed:', error);
+      console.error('README update failed:', error);
       throw error;
     }
   }
 
   createReadmeTemplate() {
-    return `# Daily Dev Journal 📚
+    return `# Daily Dev Journal
 
 A comprehensive daily development journal and productivity tracker for developers. Track your coding progress, analyze your productivity patterns, and achieve your development goals.
 
-## 🚀 Features
+## Features
 
 - **Daily Journaling**: Log your daily coding activities, mood, and productivity
 - **Goal Tracking**: Set and track learning goals and milestones
@@ -57,12 +57,12 @@ A comprehensive daily development journal and productivity tracker for developer
 - **Automated Reports**: Daily, weekly, and monthly progress reports
 - **Streak Tracking**: Maintain coding streaks and build consistent habits
 
-## 📊 Current Statistics
+## Current Statistics
 
 <!-- STATS_START -->
 <!-- STATS_END -->
 
-## 🛠️ Installation
+## Installation
 
 \`\`\`bash
 # Clone the repository
@@ -78,7 +78,7 @@ npm install
 npm start
 \`\`\`
 
-## 📝 Usage
+## Usage
 
 ### Create a Journal Entry
 \`\`\`bash
@@ -110,7 +110,7 @@ node src/index.js goals -l
 node src/index.js goals -c GOAL_ID
 \`\`\`
 
-## 🤖 Automation
+## Automation
 
 This project includes GitHub Actions for daily automation:
 
@@ -119,7 +119,7 @@ This project includes GitHub Actions for daily automation:
 - **Statistics Updates**: README and documentation updates
 - **Data Maintenance**: Cleanup and optimization tasks
 
-## 📈 Reports
+## Reports
 
 The journal generates various types of reports:
 
@@ -129,16 +129,16 @@ The journal generates various types of reports:
 - **Technology Reports**: Analysis of technology usage and learning patterns
 - **Progress Reports**: Long-term development journey tracking
 
-## 🎯 Goals & Achievements
+## Goals & Achievements
 
 Track your learning goals and unlock achievements as you progress:
 
-- 🔥 **Streak Achievements**: For maintaining daily coding habits
-- 📝 **Entry Milestones**: For consistent journaling
-- 🛠️ **Technology Explorer**: For learning diverse technologies
-- 📊 **Analytics Master**: For deep analysis and insights
+- **Streak Achievements**: For maintaining daily coding habits
+- **Entry Milestones**: For consistent journaling
+- **Technology Explorer**: For learning diverse technologies
+- **Analytics Master**: For deep analysis and insights
 
-## 📊 Data Structure
+## Data Structure
 
 The journal stores data in JSON format with the following structure:
 
@@ -152,15 +152,15 @@ data/
 └── logs/             # System logs and maintenance
 \`\`\`
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome! Please feel free to submit pull requests, create issues, or suggest new features.
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - Built for developers who want to track and improve their coding journey
 - Inspired by the power of consistent daily practice and reflection
@@ -179,23 +179,23 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
     const statsSection = `
 | Metric | Value |
 |--------|-------|
-| 📅 **Days Tracked** | ${stats.summary.totalDays} days |
-| 📝 **Total Entries** | ${allTimeStats.summary.totalEntries} entries |
-| 🔥 **Current Streak** | ${stats.summary.currentStreak} days |
-| 📊 **Longest Streak** | ${allTimeStats.summary.longestStreak} days |
-| ⏰ **Total Hours** | ${allTimeStats.timeSpent.total}h |
-| 📈 **Avg Productivity** | ${stats.productivity.average}/5.0 |
-| 💻 **Technologies Used** | ${allTimeStats.technologies.total} different |
-| 🎯 **Achievements** | ${allTimeStats.achievements.length} earned |
-| 📊 **Journey Started** | ${startDate.format('MMM DD, YYYY')} (${daysSinceStart} days ago) |
+| **Days Tracked** | ${stats.summary.totalDays} days |
+| **Total Entries** | ${allTimeStats.summary.totalEntries} entries |
+| **Current Streak** | ${stats.summary.currentStreak} days |
+| **Longest Streak** | ${allTimeStats.summary.longestStreak} days |
+| **Total Hours** | ${allTimeStats.timeSpent.total}h |
+| **Avg Productivity** | ${stats.productivity.average}/5.0 |
+| **Technologies Used** | ${allTimeStats.technologies.total} different |
+| **Achievements** | ${allTimeStats.achievements.length} earned |
+| **Journey Started** | ${startDate.format('MMM DD, YYYY')} (${daysSinceStart} days ago) |
 
-### 🏆 Recent Achievements
+### Recent Achievements
 ${allTimeStats.achievements.length > 0 
   ? allTimeStats.achievements.slice(-3).map(a => `- ${a.title}: ${a.description}`).join('\n')
   : '- No achievements yet - keep coding!'
 }
 
-### 💻 Top Technologies (Last 30 Days)
+### Top Technologies (Last 30 Days)
 ${stats.technologies.mostUsed.length > 0
   ? stats.technologies.mostUsed.slice(0, 5).map(([tech, count], i) => 
       `${i + 1}. **${tech}** (${count} times)`
@@ -203,7 +203,7 @@ ${stats.technologies.mostUsed.length > 0
   : '- No technologies tracked yet'
 }
 
-### 📊 Weekly Activity Pattern
+### Weekly Activity Pattern
 ${stats.patterns.bestDayOfWeek ? `Most active on: **${stats.patterns.bestDayOfWeek}**` : 'Building activity patterns...'}
 
 *Statistics last updated: ${moment().format('MMM DD, YYYY [at] HH:mm UTC')}*

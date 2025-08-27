@@ -16,7 +16,7 @@ class DailyUpdater {
   }
 
   async run() {
-    console.log('🚀 Running daily update...');
+    console.log('Running daily update...');
     
     try {
       await this.ensureDirectories();
@@ -26,9 +26,9 @@ class DailyUpdater {
       await this.cleanupOldData();
       await this.logDailyRun();
       
-      console.log('✅ Daily update completed successfully!');
+      console.log('Daily update completed successfully!');
     } catch (error) {
-      console.error('❌ Daily update failed:', error);
+      console.error('Daily update failed:', error);
       await this.logError(error);
       process.exit(1);
     }
@@ -56,7 +56,7 @@ class DailyUpdater {
       motivation: this.getMotivationalQuote()
     }, { spaces: 2 });
     
-    console.log('📊 Generated daily insights');
+    console.log('Generated daily insights');
   }
 
   async createDailyInsights() {
@@ -69,13 +69,13 @@ class DailyUpdater {
     if (stats.productivity.average > 3.5) {
       insights.push({
         type: 'productivity',
-        message: '🎯 You\'ve been highly productive this week! Keep up the great work.',
+        message: 'You\'ve been highly productive this week! Keep up the great work.',
         data: { average: stats.productivity.average }
       });
     } else if (stats.productivity.average < 2.5) {
       insights.push({
         type: 'productivity',
-        message: '💡 Consider breaking down tasks into smaller chunks to boost productivity.',
+        message: 'Consider breaking down tasks into smaller chunks to boost productivity.',
         data: { average: stats.productivity.average }
       });
     }
@@ -84,7 +84,7 @@ class DailyUpdater {
     if (stats.technologies.total > 5) {
       insights.push({
         type: 'learning',
-        message: `🛠️ You've worked with ${stats.technologies.total} different technologies this week!`,
+        message: `You've worked with ${stats.technologies.total} different technologies this week!`,
         data: { technologies: stats.technologies.mostUsed.slice(0, 3) }
       });
     }
@@ -93,7 +93,7 @@ class DailyUpdater {
     if (stats.summary.currentStreak > 0) {
       insights.push({
         type: 'streak',
-        message: `🔥 ${stats.summary.currentStreak} day streak! Every day counts toward your growth.`,
+        message: `${stats.summary.currentStreak} day streak! Every day counts toward your growth.`,
         data: { streak: stats.summary.currentStreak }
       });
     }
@@ -144,7 +144,7 @@ class DailyUpdater {
     
     await fs.writeJson(configFile, config, { spaces: 2 });
     
-    console.log('📅 Updated streak data');
+    console.log('Updated streak data');
   }
 
   async generateWeeklyReport() {
@@ -166,7 +166,7 @@ class DailyUpdater {
       };
       
       await fs.writeJson(reportFile, weeklyReport, { spaces: 2 });
-      console.log('📝 Generated weekly report');
+      console.log('Generated weekly report');
     }
   }
 
@@ -209,7 +209,7 @@ class DailyUpdater {
       
       if (fileDate.isBefore(cutoffDate)) {
         await fs.remove(filePath);
-        console.log(`🗑️ Cleaned up old log: ${logFile}`);
+        console.log(`Cleaned up old log: ${logFile}`);
       }
     }
   }

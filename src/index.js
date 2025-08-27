@@ -19,9 +19,9 @@ program
     const journal = new Journal();
     try {
       await journal.createEntry(options);
-      console.log(chalk.green('✅ Journal entry created successfully!'));
+      console.log(chalk.green('Journal entry created successfully!'));
     } catch (error) {
-      console.error(chalk.red('❌ Error creating entry:', error.message));
+      console.error(chalk.red('Error creating entry:', error.message));
     }
   });
 
@@ -35,7 +35,7 @@ program
       const stats = await analytics.generateStats(parseInt(options.days));
       displayStats(stats);
     } catch (error) {
-      console.error(chalk.red('❌ Error generating stats:', error.message));
+      console.error(chalk.red('Error generating stats:', error.message));
     }
   });
 
@@ -50,20 +50,20 @@ program
     try {
       if (options.add) {
         await journal.addGoal(options.add);
-        console.log(chalk.green('🎯 Goal added successfully!'));
+        console.log(chalk.green('Goal added successfully!'));
       } else if (options.complete) {
         await journal.completeGoal(options.complete);
-        console.log(chalk.green('🎉 Goal completed!'));
+        console.log(chalk.green('Goal completed!'));
       } else if (options.list) {
         const goals = await journal.listGoals();
-        console.log(chalk.blue('📋 Your Goals:'));
+        console.log(chalk.blue('Your Goals:'));
         goals.forEach((goal, index) => {
-          const status = goal.completed ? '✅' : '⏳';
+          const status = goal.completed ? '[DONE]' : '[TODO]';
           console.log(`  ${status} ${index + 1}. ${goal.title}`);
         });
       }
     } catch (error) {
-      console.error(chalk.red('❌ Error managing goals:', error.message));
+      console.error(chalk.red('Error managing goals:', error.message));
     }
   });
 

@@ -13,7 +13,7 @@ class ReportGenerator {
   }
 
   async generateAllReports() {
-    console.log('📊 Generating comprehensive reports...');
+    console.log('Generating comprehensive reports...');
     
     try {
       await fs.ensureDir(this.reportsDir);
@@ -23,9 +23,9 @@ class ReportGenerator {
       await this.generateProgressReport();
       await this.generateTechnologyReport();
       
-      console.log('✅ All reports generated successfully!');
+      console.log('All reports generated successfully!');
     } catch (error) {
-      console.error('❌ Report generation failed:', error);
+      console.error('Report generation failed:', error);
       throw error;
     }
   }
@@ -54,7 +54,7 @@ class ReportGenerator {
     };
     
     await fs.writeJson(reportFile, report, { spaces: 2 });
-    console.log('📅 Generated daily report');
+    console.log('Generated daily report');
   }
 
   async generateMonthlyReport() {
@@ -83,7 +83,7 @@ class ReportGenerator {
     };
     
     await fs.writeJson(reportFile, report, { spaces: 2 });
-    console.log('📅 Generated monthly report');
+    console.log('Generated monthly report');
   }
 
   async generateProgressReport() {
@@ -108,7 +108,7 @@ class ReportGenerator {
     };
     
     await fs.writeJson(reportFile, report, { spaces: 2 });
-    console.log('📈 Generated progress report');
+    console.log('Generated progress report');
   }
 
   async generateTechnologyReport() {
@@ -130,22 +130,22 @@ class ReportGenerator {
     };
     
     await fs.writeJson(reportFile, report, { spaces: 2 });
-    console.log('💻 Generated technology report');
+    console.log('Generated technology report');
   }
 
   generateDailyHighlights(stats) {
     const highlights = [];
     
     if (stats.summary.totalEntries > 0) {
-      highlights.push(`📝 Created ${stats.summary.totalEntries} journal entries today`);
+      highlights.push(`Created ${stats.summary.totalEntries} journal entries today`);
     }
     
     if (stats.timeSpent.total > 0) {
-      highlights.push(`⏰ Spent ${stats.timeSpent.total} hours coding`);
+      highlights.push(`Spent ${stats.timeSpent.total} hours coding`);
     }
     
     if (stats.achievements.length > 0) {
-      highlights.push(`🏆 Earned ${stats.achievements.length} achievements`);
+      highlights.push(`Earned ${stats.achievements.length} achievements`);
     }
     
     return highlights;

@@ -1,8 +1,8 @@
-# Daily Dev Journal 📚
+# Daily Dev Journal
 
 A comprehensive daily development journal and productivity tracker for developers. Track your coding progress, analyze your productivity patterns, and achieve your development goals.
 
-## 🚀 Features
+## Features
 
 - **Daily Journaling**: Log your daily coding activities, mood, and productivity
 - **Goal Tracking**: Set and track learning goals and milestones
@@ -11,36 +11,36 @@ A comprehensive daily development journal and productivity tracker for developer
 - **Automated Reports**: Daily, weekly, and monthly progress reports
 - **Streak Tracking**: Maintain coding streaks and build consistent habits
 
-## 📊 Current Statistics
+## Current Statistics
 
 <!-- STATS_START -->
 
 | Metric | Value |
 |--------|-------|
-| 📅 **Days Tracked** | 0 days |
-| 📝 **Total Entries** | 0 entries |
-| 🔥 **Current Streak** | 0 days |
-| 📊 **Longest Streak** | 0 days |
-| ⏰ **Total Hours** | 0h |
-| 📈 **Avg Productivity** | 0/5.0 |
-| 💻 **Technologies Used** | 0 different |
-| 🎯 **Achievements** | 0 earned |
-| 📊 **Journey Started** | Getting started... |
+| **Days Tracked** | 0 days |
+| **Total Entries** | 0 entries |
+| **Current Streak** | 0 days |
+| **Longest Streak** | 0 days |
+| **Total Hours** | 0h |
+| **Avg Productivity** | 0/5.0 |
+| **Technologies Used** | 0 different |
+| **Achievements** | 0 earned |
+| **Journey Started** | Getting started... |
 
-### 🏆 Recent Achievements
+### Recent Achievements
 - No achievements yet - keep coding!
 
-### 💻 Top Technologies (Last 30 Days)
+### Top Technologies (Last 30 Days)
 - No technologies tracked yet
 
-### 📊 Weekly Activity Pattern
+### Weekly Activity Pattern
 Building activity patterns...
 
 *Statistics last updated: Getting started*
 
 <!-- STATS_END -->
 
-## 🛠️ Installation
+## Installation
 
 ```bash
 # Clone the repository
@@ -56,7 +56,7 @@ npm install
 npm start
 ```
 
-## 📝 Usage
+## Usage
 
 ### Create a Journal Entry
 ```bash
@@ -88,7 +88,7 @@ node src/index.js goals -l
 node src/index.js goals -c GOAL_ID
 ```
 
-## 🤖 Automation
+## Automation
 
 This project includes GitHub Actions for daily automation:
 
@@ -97,7 +97,7 @@ This project includes GitHub Actions for daily automation:
 - **Statistics Updates**: README and documentation updates
 - **Data Maintenance**: Cleanup and optimization tasks
 
-## 📈 Reports
+## Reports
 
 The journal generates various types of reports:
 
@@ -107,16 +107,16 @@ The journal generates various types of reports:
 - **Technology Reports**: Analysis of technology usage and learning patterns
 - **Progress Reports**: Long-term development journey tracking
 
-## 🎯 Goals & Achievements
+## Goals & Achievements
 
 Track your learning goals and unlock achievements as you progress:
 
-- 🔥 **Streak Achievements**: For maintaining daily coding habits
-- 📝 **Entry Milestones**: For consistent journaling
-- 🛠️ **Technology Explorer**: For learning diverse technologies
-- 📊 **Analytics Master**: For deep analysis and insights
+- **Streak Achievements**: For maintaining daily coding habits
+- **Entry Milestones**: For consistent journaling
+- **Technology Explorer**: For learning diverse technologies
+- **Analytics Master**: For deep analysis and insights
 
-## 📊 Data Structure
+## Data Structure
 
 The journal stores data in JSON format with the following structure:
 
@@ -130,15 +130,15 @@ data/
 └── logs/             # System logs and maintenance
 ```
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome! Please feel free to submit pull requests, create issues, or suggest new features.
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - Built for developers who want to track and improve their coding journey
 - Inspired by the power of consistent daily practice and reflection

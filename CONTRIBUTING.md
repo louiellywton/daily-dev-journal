@@ -1,8 +1,8 @@
-# Contributing to Daily Dev Journal 🤝
+# Contributing to Daily Dev Journal
 
 Thank you for considering contributing to Daily Dev Journal! This project aims to help developers track their progress and build better coding habits.
 
-## 📋 Table of Contents
+## Table of Contents
 - [Code of Conduct](#code-of-conduct)
 - [Getting Started](#getting-started)
 - [Development Setup](#development-setup)
@@ -11,11 +11,11 @@ Thank you for considering contributing to Daily Dev Journal! This project aims t
 - [Testing](#testing)
 - [Documentation](#documentation)
 
-## 📜 Code of Conduct
+## Code of Conduct
 
 By participating in this project, you agree to abide by our Code of Conduct. Please be respectful, inclusive, and constructive in all interactions.
 
-## 🚀 Getting Started
+## Getting Started
 
 1. **Fork the repository** on GitHub
 2. **Clone your fork** locally:
@@ -28,7 +28,7 @@ By participating in this project, you agree to abide by our Code of Conduct. Ple
    git remote add upstream https://github.com/louiellywton/daily-dev-journal.git
    ```
 
-## 🛠️ Development Setup
+## Development Setup
 
 1. **Install dependencies**:
    ```bash
@@ -50,9 +50,9 @@ By participating in this project, you agree to abide by our Code of Conduct. Ple
    npm run lint
    ```
 
-## 🔧 Making Contributions
+## Making Contributions
 
-### 🐛 Bug Reports
+### Bug Reports
 
 When filing a bug report, please include:
 
@@ -62,7 +62,7 @@ When filing a bug report, please include:
 - **Environment information** (OS, Node.js version, etc.)
 - **Screenshots** if applicable
 
-### ✨ Feature Requests
+### Feature Requests
 
 For feature requests, please provide:
 
@@ -71,7 +71,7 @@ For feature requests, please provide:
 - **Possible implementation approach**
 - **Any relevant examples** or mockups
 
-### 💻 Code Contributions
+### Code Contributions
 
 1. **Create a branch** for your feature or bug fix:
    ```bash
@@ -100,7 +100,7 @@ For feature requests, please provide:
 
 7. **Create a Pull Request** on GitHub
 
-## 📝 Style Guidelines
+## Style Guidelines
 
 ### JavaScript Style
 
@@ -163,7 +163,7 @@ data/
 └── logs/           # Application logs
 ```
 
-## 🧪 Testing
+## Testing
 
 ### Running Tests
 
@@ -197,7 +197,7 @@ describe('Analytics', () => {
 });
 ```
 
-## 📚 Documentation
+## Documentation
 
 ### Code Documentation
 
@@ -216,36 +216,36 @@ When adding features:
 
 Document any new APIs or significant changes in the `docs/` directory.
 
-## 🎯 Areas for Contribution
+## Areas for Contribution
 
 We welcome contributions in these areas:
 
-### 🔧 Features
+### Features
 - New analytics and insights
 - Additional export formats
 - Integration with external services
 - Mobile/web interface
 - Data visualization improvements
 
-### 🐛 Bug Fixes
+### Bug Fixes
 - Calculation errors in analytics
 - Performance optimizations
 - Cross-platform compatibility
 - Error handling improvements
 
-### 📝 Documentation
+### Documentation
 - Code comments and documentation
 - Tutorial and how-to guides
 - API documentation
 - Translation to other languages
 
-### 🧪 Testing
+### Testing
 - Unit test coverage
 - Integration tests
 - Performance testing
 - Cross-platform testing
 
-## 💡 Development Tips
+## Development Tips
 
 ### Project Structure Understanding
 
@@ -266,7 +266,7 @@ We welcome contributions in these areas:
 - Ensure backward compatibility when changing data structures
 - Test with various data sizes and edge cases
 
-## ❓ Getting Help
+## Getting Help
 
 If you need help or have questions:
 
@@ -275,10 +275,10 @@ If you need help or have questions:
 3. Create a new **GitHub Issue** with the `question` label
 4. Join our community discussions
 
-## 🙏 Recognition
+## Recognition
 
 All contributors will be recognized in our README and release notes. Thank you for helping make Daily Dev Journal better!
 
 ---
 
-Happy coding! 🚀
+Happy coding!

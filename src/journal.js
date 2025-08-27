@@ -81,7 +81,7 @@ class Journal {
       type: 'list',
       name: 'mood',
       message: 'How are you feeling about your development today?',
-      choices: ['😊 Great', '😐 Okay', '😔 Struggling', '🤔 Confused', '🚀 Excited']
+      choices: ['Great', 'Okay', 'Struggling', 'Confused', 'Excited']
     }]);
     return mood;
   }
@@ -118,11 +118,11 @@ class Journal {
   }
 
   async interactiveEntry() {
-    console.log(chalk.blue('\n🚀 Starting interactive journal session...\n'));
+    console.log(chalk.blue('\nStarting interactive journal session...\n'));
     
     const entry = await this.createEntry();
     
-    console.log(chalk.green('\n✨ Entry saved successfully!'));
+    console.log(chalk.green('\nEntry saved successfully!'));
     console.log(chalk.gray(`Entry ID: ${entry.id}`));
     console.log(chalk.gray(`Timestamp: ${entry.timestamp}`));
   }

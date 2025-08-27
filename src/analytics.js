@@ -198,7 +198,7 @@ class Analytics {
     // Streak achievements
     if (config.streakCount >= 7) {
       achievements.push({
-        title: '🔥 Week Warrior',
+        title: 'Week Warrior',
         description: '7+ day coding streak',
         earned: true
       });
@@ -206,7 +206,7 @@ class Analytics {
     
     if (config.streakCount >= 30) {
       achievements.push({
-        title: '🚀 Month Master',
+        title: 'Month Master',
         description: '30+ day coding streak',
         earned: true
       });
@@ -215,7 +215,7 @@ class Analytics {
     // Entry count achievements
     if (config.totalEntries >= 50) {
       achievements.push({
-        title: '📝 Prolific Writer',
+        title: 'Prolific Writer',
         description: '50+ journal entries',
         earned: true
       });
@@ -233,7 +233,7 @@ class Analytics {
 
     if (allTechs.size >= 10) {
       achievements.push({
-        title: '🛠️ Tech Explorer',
+        title: 'Tech Explorer',
         description: 'Used 10+ different technologies',
         earned: true
       });

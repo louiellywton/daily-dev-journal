@@ -54,7 +54,7 @@ jobs:
         
         # Create commit message with current date
         CURRENT_DATE=$(date +'%Y-%m-%d')
-        git commit -m "📊 Daily update: $CURRENT_DATE
+        git commit -m "Daily update: $CURRENT_DATE
         
         - Generated daily insights and analytics
         - Updated development statistics
@@ -82,5 +82,5 @@ jobs:
         fi
         
         git add README.md
-        git commit -m "📈 Update README statistics"
+        git commit -m "Update README statistics"
         git push
