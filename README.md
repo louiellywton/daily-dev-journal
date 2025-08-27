@@ -44,7 +44,7 @@ Building activity patterns...
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/daily-dev-journal.git
+git clone https://github.com/louiellywton/daily-dev-journal.git
 
 # Navigate to project directory
 cd daily-dev-journal

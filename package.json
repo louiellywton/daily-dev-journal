@@ -21,7 +21,7 @@
     "daily-habits",
     "self-improvement"
   ],
-  "author": "Your Name",
+  "author": "louiellywton",
   "license": "MIT",
   "dependencies": {
     "fs-extra": "^11.1.1",
@@ -37,10 +37,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/daily-dev-journal.git"
+    "url": "https://github.com/louiellywton/daily-dev-journal.git"
   },
   "bugs": {
-    "url": "https://github.com/yourusername/daily-dev-journal/issues"
+    "url": "https://github.com/louiellywton/daily-dev-journal/issues"
   },
-  "homepage": "https://github.com/yourusername/daily-dev-journal#readme"
+  "homepage": "https://github.com/louiellywton/daily-dev-journal#readme"
 }

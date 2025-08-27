@@ -20,12 +20,12 @@ By participating in this project, you agree to abide by our Code of Conduct. Ple
 1. **Fork the repository** on GitHub
 2. **Clone your fork** locally:
    ```bash
-   git clone https://github.com/yourusername/daily-dev-journal.git
+   git clone https://github.com/louiellywton/daily-dev-journal.git
    cd daily-dev-journal
    ```
 3. **Add the upstream repository**:
    ```bash
-   git remote add upstream https://github.com/originalowner/daily-dev-journal.git
+   git remote add upstream https://github.com/louiellywton/daily-dev-journal.git
    ```
 
 ## 🛠️ Development Setup
