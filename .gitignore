@@ -129,7 +129,14 @@ logs/
 
 # Personal configuration files that shouldn't be shared
 config/local.json
+config/settings.json
 .personal-config
+
+# Data exports (keep examples but ignore generated files)
+data/exports/*.json
+data/exports/*.csv
+data/exports/*.md
+!data/exports/.gitkeep
 
 # IDE and editor files
 *.swp

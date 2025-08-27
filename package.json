@@ -5,12 +5,26 @@
   "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js",
+    "dev": "node src/index.js interactive",
     "daily-update": "node scripts/daily-update.js",
     "generate-report": "node scripts/generate-report.js",
-    "analyze": "node scripts/analyze-progress.js",
+    "update-readme": "node scripts/update-readme-stats.js",
+    "export": "node src/index.js export",
+    "export:json": "node src/index.js export -f json",
+    "export:csv": "node src/index.js export -f csv",
+    "export:markdown": "node src/index.js export -f md",
+    "stats": "node src/index.js stats",
+    "stats:weekly": "node src/index.js stats -d 7",
+    "stats:monthly": "node src/index.js stats -d 30",
+    "goals": "node src/index.js goals -l",
     "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
     "lint": "eslint src/ scripts/",
-    "format": "prettier --write ."
+    "lint:fix": "eslint src/ scripts/ --fix",
+    "format": "prettier --write .",
+    "validate": "npm run lint && npm run test",
+    "setup": "npm install && node src/index.js --help"
   },
   "keywords": [
     "developer-tools",

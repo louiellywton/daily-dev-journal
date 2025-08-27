@@ -1,15 +1,31 @@
 # Daily Dev Journal
 
-A comprehensive daily development journal and productivity tracker for developers. Track your coding progress, analyze your productivity patterns, and achieve your development goals.
+A comprehensive daily development journal and productivity tracker designed for modern developers. Built with Node.js, this tool provides intelligent analytics, automated insights, and professional reporting capabilities to help developers track their coding journey, analyze productivity patterns, and achieve their learning goals.
 
-## Features
+[![Node.js Version](https://img.shields.io/badge/node-%3E%3D%2016.0.0-brightgreen)](https://nodejs.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![GitHub Actions](https://img.shields.io/badge/CI-GitHub%20Actions-blue)](https://github.com/features/actions)
 
-- **Daily Journaling**: Log your daily coding activities, mood, and productivity
-- **Goal Tracking**: Set and track learning goals and milestones
-- **Analytics & Insights**: Generate detailed reports on your development progress
-- **Technology Tracking**: Monitor which technologies you're using and learning
-- **Automated Reports**: Daily, weekly, and monthly progress reports
-- **Streak Tracking**: Maintain coding streaks and build consistent habits
+## Key Features
+
+### Core Functionality
+- **Daily Journaling**: Log coding activities with mood, productivity, and technology tracking
+- **Goal Management**: Set, track, and complete learning objectives with milestone tracking
+- **Advanced Analytics**: Generate comprehensive statistics with caching and performance optimization
+- **Technology Analysis**: Monitor technology usage patterns and learning diversity
+- **Streak Tracking**: Maintain coding consistency with intelligent streak quality assessment
+
+### Automation & Reporting
+- **Automated Daily Updates**: Smart data processing with synthetic entry generation
+- **Multi-format Export**: Export data to JSON, CSV, and Markdown formats
+- **Weekly & Monthly Reports**: Comprehensive progress summaries with trend analysis
+- **CI/CD Integration**: GitHub Actions for automated maintenance and updates
+
+### Professional Features
+- **Data Validation**: Robust error handling and data integrity checks
+- **Performance Optimization**: Intelligent caching system with 5-minute TTL
+- **Timezone Support**: User preferences and localization capabilities
+- **Version Management**: Structured data formats with migration support
 
 ## Current Statistics
 
@@ -56,36 +72,67 @@ npm install
 npm start
 ```
 
-## Usage
+## Usage Guide
 
-### Create a Journal Entry
+### Quick Start
 ```bash
-# Interactive entry
-node src/index.js entry
+# Interactive journal session (recommended for first-time users)
+node src/index.js interactive
 
-# Quick entry with message
-node src/index.js entry -m "Worked on React components" -t "feature"
+# View help and all available commands
+node src/index.js --help
 ```
 
-### View Statistics
+### Journal Management
 ```bash
-# View 30-day statistics
+# Create a detailed journal entry
+node src/index.js entry -m "Implemented user authentication system" -t "feature"
+
+# Quick entry for bug fixes
+node src/index.js entry -m "Fixed memory leak in data processing" -t "bug-fix"
+
+# Learning-focused entry
+node src/index.js entry -m "Studied advanced React patterns" -t "learning"
+```
+
+### Analytics & Statistics
+```bash
+# View comprehensive 30-day statistics
 node src/index.js stats
 
-# View custom period
+# Weekly analysis
 node src/index.js stats -d 7
+
+# Quarterly review
+node src/index.js stats -d 90
 ```
 
-### Manage Goals
+### Goal Management System
 ```bash
-# Add a goal
-node src/index.js goals -a "Learn TypeScript"
+# Add specific learning goals
+node src/index.js goals -a "Master React performance optimization techniques"
+node src/index.js goals -a "Complete Node.js certification course"
 
-# List all goals
+# List all goals with status
 node src/index.js goals -l
 
-# Complete a goal
-node src/index.js goals -c GOAL_ID
+# Mark goal as completed (use ID from list)
+node src/index.js goals -c 1629123456789
+```
+
+### Data Export Features
+```bash
+# Export all data to JSON format
+node src/index.js export -f json
+
+# Export last 90 days to CSV for analysis
+node src/index.js export -f csv -d 90
+
+# Generate Markdown report for documentation
+node src/index.js export -f md -d 30
+
+# Export without analytics (data only)
+node src/index.js export -f json --no-analytics
 ```
 
 ## Automation

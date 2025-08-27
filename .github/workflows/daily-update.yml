@@ -1,14 +1,26 @@
-name: Daily Journal Update
+name: Daily Development Journal Update
 
 on:
   schedule:
-    # Run daily at 9:00 AM UTC
+    # Run daily at 9:00 AM UTC for automated data processing
     - cron: '0 9 * * *'
-  workflow_dispatch: # Allow manual triggering
+  workflow_dispatch: # Allow manual triggering for testing and debugging
+    inputs:
+      force_update:
+        description: 'Force update even if no changes'
+        required: false
+        default: 'false'
+        type: boolean
+      export_data:
+        description: 'Generate data export after update'
+        required: false
+        default: 'false'
+        type: boolean
 
 jobs:
   daily-update:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     
     steps:
     - name: Checkout repository
@@ -26,14 +38,19 @@ jobs:
     - name: Install dependencies
       run: |
         npm ci --only=production
+        echo "Dependencies installed successfully"
     
-    - name: Run daily update
+    - name: Run daily update and analytics processing
       run: |
+        echo "Starting daily update process..."
         node scripts/daily-update.js
+        echo "Daily update completed successfully"
     
-    - name: Generate progress report
+    - name: Generate comprehensive progress reports
       run: |
+        echo "Generating analytics and progress reports..."
         node scripts/generate-report.js
+        echo "Report generation completed"
     
     - name: Commit and push changes
       env:
@@ -65,9 +82,11 @@ jobs:
         
         git push
     
-    - name: Update README stats
+    - name: Update README statistics and documentation
       run: |
+        echo "Updating README with latest statistics..."
         node scripts/update-readme-stats.js
+        echo "Documentation updated successfully"
     
     - name: Commit README updates
       env:
@@ -83,4 +102,35 @@ jobs:
         
         git add README.md
         git commit -m "Update README statistics"
+        git push
+    
+    - name: Generate data export (if requested)
+      if: ${{ github.event.inputs.export_data == 'true' }}
+      run: |
+        echo "Generating data export as requested..."
+        node src/index.js export -f json -d 30
+        node src/index.js export -f csv -d 90
+        echo "Data export completed"
+    
+    - name: Commit exported data
+      if: ${{ github.event.inputs.export_data == 'true' }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        
+        git add data/exports/
+        
+        if git diff --staged --quiet; then
+          echo "No export files to commit"
+          exit 0
+        fi
+        
+        git commit -m "chore: Add automated data exports
+        
+        - Generated JSON export for last 30 days
+        - Generated CSV export for last 90 days
+        - Files available in data/exports/ directory"
+        
         git push

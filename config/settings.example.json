@@ -1,0 +1,57 @@
+{
+  "analytics": {
+    "cacheTimeout": 300000,
+    "enablePredictiveInsights": true,
+    "confidenceThreshold": 0.7,
+    "trendAnalysisWindow": 30
+  },
+  "automation": {
+    "enableSyntheticEntries": true,
+    "syntheticEntryProbability": 0.8,
+    "maxEntriesPerDay": 3,
+    "workingHoursStart": 9,
+    "workingHoursEnd": 17
+  },
+  "export": {
+    "defaultFormat": "json",
+    "includeAnalytics": true,
+    "maxExportDays": 365,
+    "compressionEnabled": false
+  },
+  "notifications": {
+    "dailyReminder": false,
+    "streakMilestones": true,
+    "goalDeadlines": true,
+    "achievementUnlocks": true
+  },
+  "ui": {
+    "theme": "default",
+    "dateFormat": "YYYY-MM-DD",
+    "timeFormat": "24h",
+    "showProgressBars": true,
+    "enableColors": true
+  },
+  "performance": {
+    "enableCaching": true,
+    "maxCacheSize": 100,
+    "enableBatchProcessing": true,
+    "optimizeForLargeDatasets": false
+  },
+  "integrations": {
+    "github": {
+      "enabled": false,
+      "webhook": null,
+      "syncCommits": false
+    },
+    "slack": {
+      "enabled": false,
+      "webhook": null,
+      "dailySummary": false
+    }
+  },
+  "privacy": {
+    "anonymizeExports": false,
+    "excludePersonalData": false,
+    "dataRetentionDays": 0
+  }
+}
