@@ -58,6 +58,20 @@ Building activity patterns...
 
 ## Installation
 
+### Option 1: Install from npm (Recommended)
+
+```bash
+# Install globally
+npm install -g daily-dev-journal
+
+# Use the CLI commands directly
+daily-journal --help
+# or use the short alias
+ddj --help
+```
+
+### Option 2: Install from Source
+
 ```bash
 # Clone the repository
 git clone https://github.com/louiellywton/daily-dev-journal.git

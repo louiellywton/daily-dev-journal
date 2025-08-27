@@ -1,8 +1,24 @@
 {
   "name": "daily-dev-journal",
   "version": "1.0.0",
-  "description": "A comprehensive daily development journal and productivity tracker for developers",
+  "description": "A comprehensive daily development journal and productivity tracker for developers with intelligent analytics, automated insights, and multi-format data export capabilities",
   "main": "src/index.js",
+  "bin": {
+    "daily-journal": "./src/index.js",
+    "ddj": "./src/index.js"
+  },
+  "files": [
+    "src/",
+    "scripts/",
+    "config/",
+    "README.md",
+    "LICENSE",
+    "CONTRIBUTING.md"
+  ],
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
   "scripts": {
     "start": "node src/index.js",
     "dev": "node src/index.js interactive",
@@ -33,7 +49,16 @@
     "tracking",
     "automation",
     "daily-habits",
-    "self-improvement"
+    "self-improvement",
+    "analytics",
+    "cli",
+    "nodejs",
+    "github-actions",
+    "streak-tracking",
+    "coding-habits",
+    "development-tracking",
+    "progress-tracker",
+    "goal-management"
   ],
   "author": "louiellywton",
   "license": "MIT",
