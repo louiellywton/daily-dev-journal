@@ -4,6 +4,7 @@ const { program } = require('commander');
 const chalk = require('chalk');
 const Journal = require('./journal');
 const Analytics = require('./analytics');
+const DataExporter = require('./export');
 const { displayWelcome, displayStats } = require('./ui');
 
 program
@@ -74,6 +75,28 @@ program
     displayWelcome();
     const journal = new Journal();
     await journal.interactiveEntry();
+  });
+
+program
+  .command('export')
+  .description('Export journal data to different formats')
+  .option('-f, --format <format>', 'Export format (json, csv, md)', 'json')
+  .option('-d, --days <days>', 'Number of days to export', '365')
+  .option('--no-analytics', 'Exclude analytics from export')
+  .action(async (options) => {
+    const exporter = new DataExporter();
+    try {
+      console.log(chalk.blue(`Exporting ${options.days} days of data in ${options.format} format...`));
+      const result = await exporter.exportData(options.format, {
+        days: parseInt(options.days),
+        analytics: options.analytics
+      });
+      console.log(chalk.green('Export completed successfully!'));
+      console.log(chalk.gray(`File: ${result.filename}`));
+      console.log(chalk.gray(`Path: ${result.path}`));
+    } catch (error) {
+      console.error(chalk.red('Export failed:', error.message));
+    }
   });
 
 // Default action when no command is provided

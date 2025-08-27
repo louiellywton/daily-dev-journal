@@ -15,19 +15,36 @@ class Journal {
   }
 
   async ensureDirectories() {
-    await fs.ensureDir(this.entriesDir);
-    
-    if (!await fs.pathExists(this.goalsFile)) {
-      await fs.writeJson(this.goalsFile, []);
-    }
-    
-    if (!await fs.pathExists(this.configFile)) {
-      await fs.writeJson(this.configFile, {
-        startDate: moment().format('YYYY-MM-DD'),
-        totalEntries: 0,
-        streakCount: 0,
-        longestStreak: 0
-      });
+    try {
+      await fs.ensureDir(this.entriesDir);
+      
+      // Initialize goals file with default structure if it doesn't exist
+      if (!await fs.pathExists(this.goalsFile)) {
+        await fs.writeJson(this.goalsFile, {
+          goals: [],
+          metadata: {
+            created: moment().toISOString(),
+            version: '1.0.0'
+          }
+        });
+      }
+      
+      // Initialize config with enhanced default settings
+      if (!await fs.pathExists(this.configFile)) {
+        await fs.writeJson(this.configFile, {
+          startDate: moment().format('YYYY-MM-DD'),
+          totalEntries: 0,
+          streakCount: 0,
+          longestStreak: 0,
+          preferences: {
+            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+            theme: 'default'
+          },
+          version: '1.0.0'
+        });
+      }
+    } catch (error) {
+      throw new Error(`Failed to initialize journal directories: ${error.message}`);
     }
   }
 
@@ -128,7 +145,20 @@ class Journal {
   }
 
   async addGoal(goalTitle) {
-    const goals = await fs.readJson(this.goalsFile);
+    let goalsData = await fs.readJson(this.goalsFile);
+    
+    // Handle both old and new goal file structures
+    if (Array.isArray(goalsData)) {
+      // Old format - migrate to new format
+      goalsData = {
+        goals: goalsData,
+        metadata: {
+          created: moment().toISOString(),
+          version: '1.0.0'
+        }
+      };
+    }
+    
     const newGoal = {
       id: Date.now().toString(),
       title: goalTitle,
@@ -137,15 +167,21 @@ class Journal {
       completedDate: null
     };
     
-    goals.push(newGoal);
-    await fs.writeJson(this.goalsFile, goals, { spaces: 2 });
+    goalsData.goals.push(newGoal);
+    await fs.writeJson(this.goalsFile, goalsData, { spaces: 2 });
     
     return newGoal;
   }
 
   async completeGoal(goalId) {
-    const goals = await fs.readJson(this.goalsFile);
-    const goal = goals.find(g => g.id === goalId);
+    let goalsData = await fs.readJson(this.goalsFile);
+    
+    // Handle both old and new goal file structures
+    if (Array.isArray(goalsData)) {
+      goalsData = { goals: goalsData };
+    }
+    
+    const goal = goalsData.goals.find(g => g.id === goalId);
     
     if (!goal) {
       throw new Error('Goal not found');
@@ -154,13 +190,20 @@ class Journal {
     goal.completed = true;
     goal.completedDate = moment().format('YYYY-MM-DD');
     
-    await fs.writeJson(this.goalsFile, goals, { spaces: 2 });
+    await fs.writeJson(this.goalsFile, goalsData, { spaces: 2 });
     
     return goal;
   }
 
   async listGoals() {
-    return await fs.readJson(this.goalsFile);
+    let goalsData = await fs.readJson(this.goalsFile);
+    
+    // Handle both old and new goal file structures
+    if (Array.isArray(goalsData)) {
+      return goalsData;
+    }
+    
+    return goalsData.goals || [];
   }
 
   async updateStats() {

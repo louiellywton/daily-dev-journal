@@ -8,33 +8,52 @@ class Analytics {
     this.entriesDir = path.join(this.dataDir, 'entries');
     this.configFile = path.join(this.dataDir, 'config.json');
     this.analyticsFile = path.join(this.dataDir, 'analytics.json');
+    this.cache = new Map();
+    this.cacheTimeout = 5 * 60 * 1000; // 5 minutes
   }
 
   async generateStats(days = 30) {
-    const entries = await this.getEntriesForPeriod(days);
-    const config = await this.getConfig();
+    const cacheKey = `stats_${days}`;
+    const cachedResult = this.getFromCache(cacheKey);
     
-    const stats = {
-      period: days,
-      generatedAt: moment().toISOString(),
-      summary: {
-        totalDays: entries.length,
-        totalEntries: entries.reduce((sum, day) => sum + day.entries.length, 0),
-        currentStreak: config.streakCount || 0,
-        longestStreak: config.longestStreak || 0
-      },
-      productivity: this.analyzeProductivity(entries),
-      technologies: this.analyzeTechnologies(entries),
-      mood: this.analyzeMood(entries),
-      timeSpent: this.analyzeTimeSpent(entries),
-      patterns: this.analyzePatterns(entries),
-      achievements: await this.calculateAchievements(entries, config)
-    };
+    if (cachedResult) {
+      return cachedResult;
+    }
 
-    // Save analytics for future reference
-    await this.saveAnalytics(stats);
-    
-    return stats;
+    try {
+      const entries = await this.getEntriesForPeriod(days);
+      const config = await this.getConfig();
+      
+      // Validate data integrity
+      const validatedEntries = this.validateEntries(entries);
+      
+      const stats = {
+        period: days,
+        generatedAt: moment().toISOString(),
+        summary: {
+          totalDays: validatedEntries.length,
+          totalEntries: validatedEntries.reduce((sum, day) => sum + (day.entries?.length || 0), 0),
+          currentStreak: config.streakCount || 0,
+          longestStreak: config.longestStreak || 0
+        },
+        productivity: this.analyzeProductivity(validatedEntries),
+        technologies: this.analyzeTechnologies(validatedEntries),
+        mood: this.analyzeMood(validatedEntries),
+        timeSpent: this.analyzeTimeSpent(validatedEntries),
+        patterns: this.analyzePatterns(validatedEntries),
+        achievements: await this.calculateAchievements(validatedEntries, config)
+      };
+
+      // Cache the result
+      this.setCache(cacheKey, stats);
+
+      // Save analytics for future reference
+      await this.saveAnalytics(stats);
+      
+      return stats;
+    } catch (error) {
+      throw new Error(`Failed to generate statistics: ${error.message}`);
+    }
   }
 
   async getEntriesForPeriod(days) {
@@ -265,6 +284,57 @@ class Analytics {
     } catch {
       return null;
     }
+  }
+
+  // Cache management methods
+  getFromCache(key) {
+    const cached = this.cache.get(key);
+    if (cached && (Date.now() - cached.timestamp) < this.cacheTimeout) {
+      return cached.data;
+    }
+    return null;
+  }
+
+  setCache(key, data) {
+    this.cache.set(key, {
+      data: data,
+      timestamp: Date.now()
+    });
+  }
+
+  clearCache() {
+    this.cache.clear();
+  }
+
+  // Data validation methods
+  validateEntries(entries) {
+    return entries.filter(day => {
+      return day && 
+             day.date && 
+             day.entries && 
+             Array.isArray(day.entries) &&
+             moment(day.date, 'YYYY-MM-DD', true).isValid();
+    }).map(day => ({
+      ...day,
+      entries: day.entries.filter(entry => 
+        entry && 
+        entry.timestamp && 
+        moment(entry.timestamp).isValid()
+      )
+    }));
+  }
+
+  // Performance optimization: Batch file operations
+  async batchReadEntries(dates) {
+    const promises = dates.map(date => {
+      const entryFile = path.join(this.entriesDir, `${date}.json`);
+      return fs.pathExists(entryFile).then(exists => 
+        exists ? fs.readJson(entryFile) : null
+      );
+    });
+    
+    const results = await Promise.all(promises);
+    return results.filter(entry => entry !== null);
   }
 }
 
