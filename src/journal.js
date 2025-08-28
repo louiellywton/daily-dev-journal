@@ -210,22 +210,60 @@ class Journal {
     const config = await fs.readJson(this.configFile);
     config.totalEntries = (config.totalEntries || 0) + 1;
     
-    // Calculate streak
+    // Calculate streak with improved logic
     const today = moment().format('YYYY-MM-DD');
-    const yesterday = moment().subtract(1, 'day').format('YYYY-MM-DD');
-    const yesterdayFile = path.join(this.entriesDir, `${yesterday}.json`);
+    const todayFile = path.join(this.entriesDir, `${today}.json`);
     
-    if (await fs.pathExists(yesterdayFile)) {
-      config.streakCount = (config.streakCount || 0) + 1;
-    } else {
-      config.streakCount = 1;
+    // Only update streak if this is the first entry today
+    const todayExists = await fs.pathExists(todayFile);
+    let wasAlreadyLoggedToday = false;
+    
+    if (todayExists) {
+      const todayEntry = await fs.readJson(todayFile);
+      wasAlreadyLoggedToday = todayEntry.entries && todayEntry.entries.length > 1;
     }
     
-    if (config.streakCount > config.longestStreak) {
-      config.longestStreak = config.streakCount;
+    if (!wasAlreadyLoggedToday) {
+      // Calculate current streak by checking backward from today
+      config.streakCount = await this.calculateCurrentStreak();
+      
+      if (config.streakCount > (config.longestStreak || 0)) {
+        config.longestStreak = config.streakCount;
+      }
+      
+      // Set start date if this is the first entry ever
+      if (!config.startDate) {
+        config.startDate = today;
+      }
     }
+    
+    // Update last activity
+    config.lastActivity = today;
     
     await fs.writeJson(this.configFile, config, { spaces: 2 });
+  }
+  
+  async calculateCurrentStreak() {
+    let streak = 0;
+    let currentDate = moment();
+    
+    // Check backward from today to find consecutive days
+    while (true) {
+      const dateStr = currentDate.format('YYYY-MM-DD');
+      const entryFile = path.join(this.entriesDir, `${dateStr}.json`);
+      
+      if (await fs.pathExists(entryFile)) {
+        streak++;
+        currentDate = currentDate.subtract(1, 'day');
+      } else {
+        break;
+      }
+      
+      // Safety limit to prevent infinite loops
+      if (streak > 10000) break;
+    }
+    
+    return streak;
   }
 
   async getEntries(days = 30) {

@@ -1,72 +1,39 @@
 {
-  "lastGenerated": "2025-08-28T05:06:17.941Z",
+  "lastGenerated": "2025-08-28T05:17:39.923Z",
   "stats": {
-    "period": 90,
-    "generatedAt": "2025-08-28T05:06:17.940Z",
+    "period": 365,
+    "generatedAt": "2025-08-28T05:17:39.923Z",
     "summary": {
-      "totalDays": 2,
-      "totalEntries": 2,
-      "currentStreak": 1,
-      "longestStreak": 1
+      "totalDays": 0,
+      "totalEntries": 0,
+      "currentStreak": 0,
+      "longestStreak": 0
     },
     "productivity": {
-      "distribution": {
-        "Medium": 2
-      },
-      "average": "3.00",
-      "mostCommon": "Medium"
+      "distribution": {},
+      "average": 0,
+      "mostCommon": null
     },
     "technologies": {
-      "total": 4,
-      "mostUsed": [
-        [
-          "ruby",
-          1
-        ],
-        [
-          "Java",
-          1
-        ],
-        [
-          "Go",
-          1
-        ],
-        [
-          "TypeScript",
-          1
-        ]
-      ],
-      "distribution": {
-        "ruby": 1,
-        "Java": 1,
-        "Go": 1,
-        "TypeScript": 1
-      }
+      "total": 0,
+      "mostUsed": [],
+      "distribution": {}
     },
     "mood": {
-      "distribution": {
-        "Okay": 1,
-        "Focused": 1
-      },
-      "mostCommon": "Focused"
+      "distribution": {},
+      "mostCommon": null
     },
     "timeSpent": {
-      "total": 8,
-      "average": "4.00",
-      "dailyAverage": "4.00",
-      "maxSingleDay": 6
+      "total": 0,
+      "average": 0,
+      "dailyAverage": 0,
+      "maxSingleDay": 0
     },
     "patterns": {
-      "bestDayOfWeek": "Thursday",
-      "mostActiveHour": "11",
-      "dayOfWeekDistribution": {
-        "Wednesday": 1,
-        "Thursday": 1
-      },
-      "hourlyDistribution": {
-        "5": 1,
-        "11": 1
-      }
+      "bestDayOfWeek": null,
+      "mostActiveHour": null,
+      "dayOfWeekDistribution": {},
+      "hourlyDistribution": {}
     },
     "achievements": []
   }

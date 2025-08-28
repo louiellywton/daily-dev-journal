@@ -5,6 +5,7 @@ const path = require('path');
 const moment = require('moment');
 const Journal = require('../src/journal');
 const Analytics = require('../src/analytics');
+const LogOptimizer = require('../src/log-optimizer');
 
 class DailyUpdater {
   constructor() {
@@ -217,11 +218,16 @@ class DailyUpdater {
   }
 
   async cleanupOldData() {
-    // Clean up logs older than 30 days
-    const cutoffDate = moment().subtract(30, 'days');
+    // Archive logs older than 90 days (keep 3 months of daily logs)
+    await this.archiveOldLogs();
+    
+    // Clean up logs older than 90 days (after archiving)
+    const cutoffDate = moment().subtract(90, 'days');
     const logFiles = await fs.readdir(this.logsDir).catch(() => []);
     
     for (const logFile of logFiles) {
+      if (!logFile.endsWith('.log')) continue;
+      
       const filePath = path.join(this.logsDir, logFile);
       const fileDate = moment(logFile.replace('.log', ''), 'YYYY-MM-DD');
       
@@ -229,6 +235,72 @@ class DailyUpdater {
         await fs.remove(filePath);
         console.log(`Cleaned up old log: ${logFile}`);
       }
+    }
+  }
+  
+  async archiveOldLogs() {
+    // Archive logs older than 90 days into monthly archives
+    const archiveDir = path.join(this.dataDir, 'logs', 'archives');
+    await fs.ensureDir(archiveDir);
+    
+    const cutoffDate = moment().subtract(90, 'days');
+    const logFiles = await fs.readdir(this.logsDir).catch(() => []);
+    const monthlyArchives = {};
+    
+    for (const logFile of logFiles) {
+      if (!logFile.endsWith('.log')) continue;
+      
+      const filePath = path.join(this.logsDir, logFile);
+      const fileDate = moment(logFile.replace('.log', ''), 'YYYY-MM-DD');
+      
+      if (fileDate.isBefore(cutoffDate)) {
+        const monthKey = fileDate.format('YYYY-MM');
+        
+        if (!monthlyArchives[monthKey]) {
+          monthlyArchives[monthKey] = [];
+        }
+        
+        try {
+          const logContent = await fs.readFile(filePath, 'utf8');
+          const logEntries = logContent.trim().split('\n')
+            .filter(line => line.trim())
+            .map(line => {
+              try {
+                return JSON.parse(line);
+              } catch {
+                return { timestamp: fileDate.toISOString(), raw: line };
+              }
+            });
+          
+          monthlyArchives[monthKey].push({
+            date: fileDate.format('YYYY-MM-DD'),
+            entries: logEntries
+          });
+        } catch (error) {
+          console.error(`Failed to archive log ${logFile}:`, error.message);
+        }
+      }
+    }
+    
+    // Save monthly archives
+    for (const [month, logs] of Object.entries(monthlyArchives)) {
+      const archiveFile = path.join(archiveDir, `${month}.json`);
+      
+      let existingArchive = [];
+      if (await fs.pathExists(archiveFile)) {
+        existingArchive = await fs.readJson(archiveFile);
+      }
+      
+      // Merge new logs with existing archive
+      const mergedLogs = [...existingArchive, ...logs];
+      
+      // Remove duplicates based on date
+      const uniqueLogs = mergedLogs.filter((log, index, arr) => 
+        arr.findIndex(l => l.date === log.date) === index
+      );
+      
+      await fs.writeJson(archiveFile, uniqueLogs, { spaces: 2 });
+      console.log(`Archived ${logs.length} log files to ${month}.json`);
     }
   }
 

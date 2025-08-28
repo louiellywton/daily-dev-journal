@@ -1,6 +1,10 @@
 const fs = require('fs-extra');
 const path = require('path');
 const moment = require('moment');
+const VectorAnalytics = require('./vector-analytics');
+const { PerformanceEngine } = require('./performance-engine');
+const { EventSystem } = require('./event-system');
+const { AnalyticsPipeline } = require('./data-pipeline');
 
 class Analytics {
   constructor() {
@@ -10,9 +14,46 @@ class Analytics {
     this.analyticsFile = path.join(this.dataDir, 'analytics.json');
     this.cache = new Map();
     this.cacheTimeout = 5 * 60 * 1000; // 5 minutes
+    
+    // Initialize high-performance systems
+    this.performanceEngine = new PerformanceEngine();
+    this.eventSystem = new EventSystem({
+      persistence: true,
+      monitoring: true
+    });
+    this.analyticsPipeline = new AnalyticsPipeline({
+      enableRealtime: true,
+      slidingWindow: true,
+      windowSize: 86400000 // 24 hours
+    });
+    
+    this.initialized = false;
+    this.setupEventHandlers();
+  }
+
+  async initialize() {
+    if (!this.initialized) {
+      console.log('🚀 Initializing high-performance analytics systems...');
+      await this.performanceEngine.initialize();
+      this.initialized = true;
+      console.log('✅ Analytics systems initialized');
+    }
+  }
+
+  setupEventHandlers() {
+    // Setup analytics processing events
+    this.eventSystem.eventBus.on('analytics.generate', async (data) => {
+      await this.generateStats(data.days || 30);
+    });
+    
+    this.eventSystem.eventBus.on('data.processed', (data) => {
+      this.analyticsPipeline.processData(data);
+    });
   }
 
   async generateStats(days = 30) {
+    await this.initialize();
+    
     const cacheKey = `stats_${days}`;
     const cachedResult = this.getFromCache(cacheKey);
     
@@ -50,6 +91,12 @@ class Analytics {
       // Save analytics for future reference
       await this.saveAnalytics(stats);
       
+      // Emit analytics completion event
+      this.eventSystem.eventBus.emit('analytics.completed', {
+        stats: stats,
+        performance: this.getPerformanceMetrics()
+      });
+      
       return stats;
     } catch (error) {
       throw new Error(`Failed to generate statistics: ${error.message}`);
@@ -57,18 +104,58 @@ class Analytics {
   }
 
   async getEntriesForPeriod(days) {
+    await this.initialize();
+    
+    // Use high-performance engine for optimized data retrieval
+    if (days > 100) {
+      return this.getHighPerformanceBatchEntries(days);
+    }
+    
     const entries = [];
     for (let i = 0; i < days; i++) {
       const date = moment().subtract(i, 'days').format('YYYY-MM-DD');
-      const entryFile = path.join(this.entriesDir, `${date}.json`);
       
-      if (await fs.pathExists(entryFile)) {
-        const dayEntry = await fs.readJson(entryFile);
+      // Use performance engine's optimized getEntry method
+      const dayEntry = await this.performanceEngine.getEntry(date);
+      if (dayEntry) {
         entries.push(dayEntry);
       }
     }
     
     return entries.reverse();
+  }
+  
+  async getHighPerformanceBatchEntries(days) {
+    const startDate = moment().subtract(days - 1, 'days').format('YYYY-MM-DD');
+    const endDate = moment().format('YYYY-MM-DD');
+    
+    // Use performance engine's optimized range query
+    return await this.performanceEngine.getEntriesInRange(startDate, endDate, days);
+  }
+  
+  async getBatchEntriesForPeriod(days) {
+    // Fallback to traditional batch processing if needed
+    const dates = [];
+    for (let i = 0; i < days; i++) {
+      dates.push(moment().subtract(i, 'days').format('YYYY-MM-DD'));
+    }
+    
+    // Use analytics pipeline for batch processing
+    const transformations = [{
+      fn: async (batch) => {
+        const batchEntries = [];
+        for (const date of batch) {
+          const entry = await this.performanceEngine.getEntry(date);
+          if (entry) batchEntries.push(entry);
+        }
+        return batchEntries;
+      },
+      batchSize: 50,
+      concurrency: 4
+    }];
+    
+    const result = await this.analyticsPipeline.processData(dates, transformations);
+    return result.flat().reverse();
   }
 
   async getConfig() {
@@ -335,6 +422,257 @@ class Analytics {
     
     const results = await Promise.all(promises);
     return results.filter(entry => entry !== null);
+  }
+
+  // Vector-based advanced analytics
+  async generateAdvancedAnalytics(days = 30) {
+    const cacheKey = `vector_analytics_${days}`;
+    const cachedResult = this.getFromCache(cacheKey);
+    
+    if (cachedResult) {
+      return cachedResult;
+    }
+
+    try {
+      const entries = await this.getEntriesForPeriod(days);
+      const validatedEntries = this.validateEntries(entries);
+      
+      if (validatedEntries.length < 3) {
+        return {
+          status: 'insufficient_data',
+          message: 'Need at least 3 days of data for advanced vector analytics',
+          dataPoints: validatedEntries.length
+        };
+      }
+
+      const vectorAnalytics = new VectorAnalytics();
+      const advancedReport = await vectorAnalytics.generateVectorReport(validatedEntries);
+      
+      // Cache the result for better performance
+      this.setCache(cacheKey, advancedReport);
+      
+      return advancedReport;
+    } catch (error) {
+      throw new Error(`Failed to generate advanced analytics: ${error.message}`);
+    }
+  }
+
+  // Hybrid analytics combining traditional stats with vector analysis
+  async generateHybridAnalytics(days = 30) {
+    const [traditionalStats, vectorStats] = await Promise.all([
+      this.generateStats(days),
+      this.generateAdvancedAnalytics(days)
+    ]);
+
+    return {
+      generatedAt: moment().toISOString(),
+      period: days,
+      traditional: traditionalStats,
+      advanced: vectorStats,
+      performance: {
+        optimizationLevel: 'hybrid',
+        usesVectorComputation: true,
+        cacheEnabled: true,
+        engine: this.getPerformanceMetrics()
+      }
+    };
+  }
+
+  // Get comprehensive performance metrics
+  getPerformanceMetrics() {
+    return {
+      engine: this.performanceEngine.getPerformanceStats(),
+      pipeline: this.analyticsPipeline.getMetrics(),
+      eventSystem: this.eventSystem.getSystemStats(),
+      traditional: {
+        cacheSize: this.cache.size,
+        cacheTimeout: this.cacheTimeout,
+        memoryUsage: process.memoryUsage()
+      }
+    };
+  }
+
+  // High-performance search capabilities
+  async searchTechnologies(query, limit = 10) {
+    await this.initialize();
+    return this.performanceEngine.searchTechnologies(query, limit);
+  }
+
+  async searchKeywords(query, limit = 10) {
+    await this.initialize();
+    return this.performanceEngine.searchKeywords(query, limit);
+  }
+
+  // Real-time analytics streaming
+  enableRealtimeAnalytics(callback) {
+    this.analyticsPipeline.addRealtimeCallback(callback);
+  }
+
+  disableRealtimeAnalytics(callback) {
+    this.analyticsPipeline.removeRealtimeCallback(callback);
+  }
+
+  // Time-series analytics for trend analysis
+  async generateTimeSeriesAnalytics(days = 30, interval = 'day') {
+    await this.initialize();
+    
+    const entries = await this.getEntriesForPeriod(days);
+    const validatedEntries = this.validateEntries(entries);
+    
+    // Flatten entries with timestamps
+    const flatEntries = [];
+    validatedEntries.forEach(day => {
+      day.entries.forEach(entry => {
+        flatEntries.push({
+          timestamp: entry.timestamp,
+          date: day.date,
+          productivity: this.productivityToNumeric(entry.productivity),
+          timeSpent: entry.timeSpent || 0,
+          techCount: entry.technologies ? entry.technologies.length : 0,
+          mood: entry.mood
+        });
+      });
+    });
+    
+    // Use analytics pipeline for time-series analysis
+    const productivitySeries = await this.analyticsPipeline.analyzeTimeSeries(
+      flatEntries,
+      {
+        timeField: 'timestamp',
+        valueField: 'productivity',
+        interval,
+        metrics: ['count', 'avg', 'min', 'max']
+      }
+    );
+    
+    const timeSpentSeries = await this.analyticsPipeline.analyzeTimeSeries(
+      flatEntries,
+      {
+        timeField: 'timestamp',
+        valueField: 'timeSpent',
+        interval,
+        metrics: ['sum', 'avg', 'max']
+      }
+    );
+    
+    const techUsageSeries = await this.analyticsPipeline.analyzeTimeSeries(
+      flatEntries,
+      {
+        timeField: 'timestamp',
+        valueField: 'techCount',
+        interval,
+        metrics: ['sum', 'avg']
+      }
+    );
+    
+    return {
+      generatedAt: moment().toISOString(),
+      period: days,
+      interval,
+      series: {
+        productivity: productivitySeries,
+        timeSpent: timeSpentSeries,
+        technologyUsage: techUsageSeries
+      },
+      performance: this.analyticsPipeline.getMetrics()
+    };
+  }
+
+  // Aggregated insights with high-performance processing
+  async generateAggregatedInsights(days = 30) {
+    await this.initialize();
+    
+    const entries = await this.getEntriesForPeriod(days);
+    const validatedEntries = this.validateEntries(entries);
+    
+    // Flatten and structure data for aggregation
+    const flatEntries = [];
+    validatedEntries.forEach(day => {
+      day.entries.forEach(entry => {
+        flatEntries.push({
+          date: day.date,
+          productivity: entry.productivity,
+          productivityNumeric: this.productivityToNumeric(entry.productivity),
+          timeSpent: entry.timeSpent || 0,
+          technologies: entry.technologies || [],
+          mood: entry.mood,
+          timestamp: entry.timestamp
+        });
+      });
+    });
+    
+    // Use analytics pipeline for aggregation
+    const aggregations = await this.analyticsPipeline.aggregate(flatEntries, {
+      totalEntries: { type: 'count' },
+      avgProductivity: { type: 'avg', field: 'productivityNumeric' },
+      totalTimeSpent: { type: 'sum', field: 'timeSpent' },
+      avgTimeSpent: { type: 'avg', field: 'timeSpent' },
+      maxTimeSpent: { type: 'max', field: 'timeSpent' },
+      uniqueTechnologies: { type: 'unique', field: 'technologies' }
+    });
+    
+    return {
+      generatedAt: moment().toISOString(),
+      period: days,
+      insights: {
+        entries: aggregations.totalEntries,
+        productivity: {
+          average: parseFloat(aggregations.avgProductivity.average?.toFixed(2) || 0),
+          distribution: this.calculateProductivityDistribution(flatEntries)
+        },
+        timeSpent: {
+          total: aggregations.totalTimeSpent,
+          average: parseFloat(aggregations.avgTimeSpent.average?.toFixed(2) || 0),
+          maximum: aggregations.maxTimeSpent
+        },
+        technologies: {
+          unique: aggregations.uniqueTechnologies.count,
+          totalUsage: aggregations.uniqueTechnologies.values.flat().length,
+          topTechnologies: this.getTopTechnologies(flatEntries, 5)
+        }
+      },
+      performance: this.analyticsPipeline.getMetrics()
+    };
+  }
+
+  calculateProductivityDistribution(entries) {
+    const distribution = {};
+    entries.forEach(entry => {
+      if (entry.productivity) {
+        distribution[entry.productivity] = (distribution[entry.productivity] || 0) + 1;
+      }
+    });
+    return distribution;
+  }
+
+  getTopTechnologies(entries, limit = 5) {
+    const techCount = {};
+    entries.forEach(entry => {
+      entry.technologies.forEach(tech => {
+        techCount[tech] = (techCount[tech] || 0) + 1;
+      });
+    });
+    
+    return Object.entries(techCount)
+      .sort(([,a], [,b]) => b - a)
+      .slice(0, limit)
+      .map(([tech, count]) => ({ technology: tech, count }));
+  }
+
+  // Graceful shutdown for cleanup
+  async shutdown() {
+    console.log('🔄 Shutting down Analytics systems...');
+    
+    if (this.performanceEngine) {
+      await this.performanceEngine.shutdown();
+    }
+    
+    if (this.eventSystem) {
+      await this.eventSystem.shutdown();
+    }
+    
+    this.clearCache();
+    console.log('✅ Analytics shutdown complete');
   }
 }
 
