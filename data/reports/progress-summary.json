@@ -1,8 +1,11 @@
 {
-  "lastGenerated": "2025-08-28T04:58:38.245Z",
-  "stats": {
+  "generated": "2025-08-28T04:58:22.235Z",
+  "type": "progress",
+  "journeyStart": "2025-08-27",
+  "daysSinceStart": 1,
+  "overallStats": {
     "period": 365,
-    "generatedAt": "2025-08-28T04:58:38.245Z",
+    "generatedAt": "2025-08-28T04:58:22.235Z",
     "summary": {
       "totalDays": 2,
       "totalEntries": 2,
@@ -69,5 +72,21 @@
       }
     },
     "achievements": []
+  },
+  "milestones": [],
+  "growth": {
+    "entriesPerDay": "2.00",
+    "hoursPerDay": "8.00",
+    "techGrowthRate": "28.00"
+  },
+  "projections": {
+    "nextMonth": {
+      "expectedEntries": 60,
+      "expectedHours": 240
+    },
+    "nextYear": {
+      "expectedEntries": 730,
+      "expectedHours": 2920
+    }
   }
 }

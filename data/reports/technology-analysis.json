@@ -1,0 +1,39 @@
+{
+  "generated": "2025-08-28T04:58:22.237Z",
+  "type": "technology",
+  "period": "90 days",
+  "summary": {
+    "totalTechnologies": 4,
+    "mostUsedTechnologies": [
+      [
+        "ruby",
+        1
+      ],
+      [
+        "Java",
+        1
+      ],
+      [
+        "Go",
+        1
+      ],
+      [
+        "TypeScript",
+        1
+      ]
+    ],
+    "diversity": {
+      "score": 0.75,
+      "level": "low"
+    }
+  },
+  "recommendations": [
+    "Explore more technologies to broaden your skillset",
+    "Consider advanced topics in ruby"
+  ],
+  "learningPath": [
+    "Focus on mastering fundamentals in your most-used technologies",
+    "Explore complementary tools and frameworks",
+    "Practice building projects that combine multiple technologies"
+  ]
+}

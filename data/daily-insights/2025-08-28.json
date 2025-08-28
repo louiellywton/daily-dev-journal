@@ -1,0 +1,17 @@
+{
+  "date": "2025-08-28",
+  "generated": "2025-08-28T04:58:08.852Z",
+  "insights": [
+    {
+      "type": "streak",
+      "message": "1 day development streak - building momentum",
+      "data": {
+        "streak": 1,
+        "quality": "building",
+        "nextMilestone": 7
+      }
+    }
+  ],
+  "tips": "Review and refactor code from previous days",
+  "motivation": "Code is like humor. When you have to explain it, it's bad. - Cory House"
+}

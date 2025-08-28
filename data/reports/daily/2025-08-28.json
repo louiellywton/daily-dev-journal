@@ -1,28 +1,26 @@
 {
-  "lastGenerated": "2025-08-28T04:58:38.245Z",
+  "date": "2025-08-28",
+  "generated": "2025-08-28T04:58:22.226Z",
+  "type": "daily",
   "stats": {
-    "period": 365,
-    "generatedAt": "2025-08-28T04:58:38.245Z",
+    "period": 1,
+    "generatedAt": "2025-08-28T04:58:22.223Z",
     "summary": {
-      "totalDays": 2,
-      "totalEntries": 2,
+      "totalDays": 1,
+      "totalEntries": 1,
       "currentStreak": 1,
       "longestStreak": 1
     },
     "productivity": {
       "distribution": {
-        "Medium": 2
+        "Medium": 1
       },
       "average": "3.00",
       "mostCommon": "Medium"
     },
     "technologies": {
-      "total": 4,
+      "total": 3,
       "mostUsed": [
-        [
-          "ruby",
-          1
-        ],
         [
           "Java",
           1
@@ -37,7 +35,6 @@
         ]
       ],
       "distribution": {
-        "ruby": 1,
         "Java": 1,
         "Go": 1,
         "TypeScript": 1
@@ -45,29 +42,36 @@
     },
     "mood": {
       "distribution": {
-        "Okay": 1,
         "Focused": 1
       },
       "mostCommon": "Focused"
     },
     "timeSpent": {
-      "total": 8,
-      "average": "4.00",
-      "dailyAverage": "4.00",
+      "total": 6,
+      "average": "6.00",
+      "dailyAverage": "6.00",
       "maxSingleDay": 6
     },
     "patterns": {
       "bestDayOfWeek": "Thursday",
       "mostActiveHour": "18",
       "dayOfWeekDistribution": {
-        "Wednesday": 1,
         "Thursday": 1
       },
       "hourlyDistribution": {
-        "12": 1,
         "18": 1
       }
     },
     "achievements": []
-  }
+  },
+  "weeklyComparison": {
+    "averageProductivity": "3.00",
+    "totalHours": 8,
+    "streak": 1
+  },
+  "highlights": [
+    "Created 1 journal entries today",
+    "Spent 6 hours coding"
+  ],
+  "nextSteps": []
 }
