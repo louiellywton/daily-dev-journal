@@ -1,8 +1,8 @@
 {
-  "lastGenerated": "2025-08-28T04:58:38.245Z",
+  "lastGenerated": "2025-08-28T05:06:17.941Z",
   "stats": {
-    "period": 365,
-    "generatedAt": "2025-08-28T04:58:38.245Z",
+    "period": 90,
+    "generatedAt": "2025-08-28T05:06:17.940Z",
     "summary": {
       "totalDays": 2,
       "totalEntries": 2,
@@ -58,14 +58,14 @@
     },
     "patterns": {
       "bestDayOfWeek": "Thursday",
-      "mostActiveHour": "18",
+      "mostActiveHour": "11",
       "dayOfWeekDistribution": {
         "Wednesday": 1,
         "Thursday": 1
       },
       "hourlyDistribution": {
-        "12": 1,
-        "18": 1
+        "5": 1,
+        "11": 1
       }
     },
     "achievements": []
