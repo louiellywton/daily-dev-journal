@@ -1,7 +1,8 @@
 {
   "startDate": "2025-08-28",
-  "totalEntries": 0,
+  "totalEntries": 1,
   "streakCount": 0,
-  "longestStreak": 0,
-  "lastActivity": null
+  "longestStreak": 1,
+  "lastActivity": "2025-08-30",
+  "currentStreak": 1
 }

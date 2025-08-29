@@ -604,37 +604,40 @@ class PerformanceEngine {
 
   async getBatchEntries(start, end, limit) {
     const entries = [];
-    const promises = [];
-    const semaphore = new Array(10).fill(0); // Limit concurrent reads
+    const concurrencyLimit = 5; // Reduced concurrency
+    const maxIterations = 365; // Safety limit
+    let iterations = 0;
     
     let current = start.clone();
-    while (current.isSameOrBefore(end) && entries.length < limit) {
-      const dateStr = current.format('YYYY-MM-DD');
+    const datePromises = [];
+    
+    // Collect all dates first
+    while (current.isSameOrBefore(end) && iterations < maxIterations) {
+      datePromises.push(current.format('YYYY-MM-DD'));
+      current.add(1, 'day');
+      iterations++;
+    }
+    
+    // Process in batches with concurrency control
+    for (let i = 0; i < datePromises.length && entries.length < limit; i += concurrencyLimit) {
+      const batch = datePromises.slice(i, i + concurrencyLimit);
       
-      // Wait for available slot
-      await new Promise(resolve => {
-        const checkSlot = () => {
-          const freeIndex = semaphore.indexOf(0);
-          if (freeIndex !== -1) {
-            semaphore[freeIndex] = 1;
-            resolve(freeIndex);
-          } else {
-            setTimeout(checkSlot, 1);
-          }
-        };
-        checkSlot();
-      }).then(async (slotIndex) => {
+      const batchPromises = batch.map(async (dateStr) => {
         try {
-          const entry = await this.getEntry(dateStr);
-          if (entry && entries.length < limit) {
-            entries.push(entry);
-          }
-        } finally {
-          semaphore[slotIndex] = 0;
+          return await this.getEntry(dateStr);
+        } catch (error) {
+          console.warn(`Failed to get entry for ${dateStr}:`, error.message);
+          return null;
         }
       });
       
-      current.add(1, 'day');
+      const batchResults = await Promise.allSettled(batchPromises);
+      
+      for (const result of batchResults) {
+        if (result.status === 'fulfilled' && result.value && entries.length < limit) {
+          entries.push(result.value);
+        }
+      }
     }
     
     return entries.sort((a, b) => a.date.localeCompare(b.date));
