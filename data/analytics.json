@@ -4,28 +4,32 @@
     "period": 30,
     "generatedAt": "2025-09-01T17:35:21.384Z",
     "summary": {
-      "totalDays": 1,
-      "totalEntries": 1
+      "totalDays": 2,
+      "totalEntries": 2
     },
     "productivity": {
       "distribution": {
-        "High": 1
+        "High": 2
       },
       "average": "4.00",
       "mostCommon": "High"
     },
     "technologies": {
-      "total": 1,
+      "total": 2,
       "mostUsed": [
         [
           "JavaScript",
+          1
+        ],
+        [
+          "Node.js",
           1
         ]
       ]
     },
     "timeSpent": {
-      "total": 3,
-      "average": "3.00"
+      "total": 5,
+      "average": "2.50"
     }
   }
 }

@@ -56,6 +56,13 @@ jobs:
         fi
         echo "Analytics processing completed"
     
+    - name: Update README Statistics
+      timeout-minutes: 1
+      run: |
+        echo "Updating README with latest statistics"
+        node scripts/lightweight-readme-updater.js || echo "README update completed with warnings"
+        echo "README statistics updated"
+    
     - name: Commit and push changes
       timeout-minutes: 2
       env:
