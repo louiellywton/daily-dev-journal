@@ -1,12 +1,10 @@
 {
-  "lastGenerated": "2025-09-07T03:01:06.393Z",
+  "period": {
+    "start": "2025-09-07",
+    "end": "2025-09-07"
+  },
+  "generated": "2025-09-07T03:01:06.398Z",
   "stats": {
-    "period": 30,
-    "generatedAt": "2025-09-07T03:01:06.393Z",
-    "summary": {
-      "totalDays": 7,
-      "totalEntries": 7
-    },
     "productivity": {
       "distribution": {
         "High": 7
@@ -19,14 +17,14 @@
       "mostUsed": [
         [
           "JavaScript",
-          4
-        ],
-        [
-          "Node.js",
-          1
+          3
         ],
         [
           "Python",
+          2
+        ],
+        [
+          "Node.js",
           1
         ],
         [
@@ -36,8 +34,13 @@
       ]
     },
     "timeSpent": {
-      "total": 21,
-      "average": "3.00"
+      "total": 20,
+      "average": "2.86"
     }
+  },
+  "summary": {
+    "totalHours": 20,
+    "averageProductivity": "4.00",
+    "technologiesUsed": 4
   }
 }
