@@ -1,0 +1,42 @@
+{
+  "period": {
+    "start": "2025-10-05",
+    "end": "2025-10-05"
+  },
+  "generated": "2025-10-05T03:05:49.827Z",
+  "stats": {
+    "productivity": {
+      "distribution": {
+        "High": 7
+      },
+      "average": "4.00",
+      "mostCommon": "High"
+    },
+    "technologies": {
+      "total": 3,
+      "mostUsed": [
+        [
+          "React",
+          4
+        ],
+        [
+          "Python",
+          2
+        ],
+        [
+          "TypeScript",
+          1
+        ]
+      ]
+    },
+    "timeSpent": {
+      "total": 25,
+      "average": "3.57"
+    }
+  },
+  "summary": {
+    "totalHours": 25,
+    "averageProductivity": "4.00",
+    "technologiesUsed": 3
+  }
+}
