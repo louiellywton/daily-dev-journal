@@ -1,0 +1,46 @@
+{
+  "period": {
+    "start": "2025-10-26",
+    "end": "2025-10-26"
+  },
+  "generated": "2025-10-26T03:08:44.435Z",
+  "stats": {
+    "productivity": {
+      "distribution": {
+        "High": 7
+      },
+      "average": "4.00",
+      "mostCommon": "High"
+    },
+    "technologies": {
+      "total": 4,
+      "mostUsed": [
+        [
+          "JavaScript",
+          3
+        ],
+        [
+          "Node.js",
+          2
+        ],
+        [
+          "TypeScript",
+          1
+        ],
+        [
+          "Python",
+          1
+        ]
+      ]
+    },
+    "timeSpent": {
+      "total": 27,
+      "average": "3.86"
+    }
+  },
+  "summary": {
+    "totalHours": 27,
+    "averageProductivity": "4.00",
+    "technologiesUsed": 4
+  }
+}
