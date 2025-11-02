@@ -1,15 +1,13 @@
 {
-  "lastGenerated": "2025-11-02T03:14:07.369Z",
+  "period": {
+    "start": "2025-11-02",
+    "end": "2025-11-02"
+  },
+  "generated": "2025-11-02T03:14:07.374Z",
   "stats": {
-    "period": 30,
-    "generatedAt": "2025-11-02T03:14:07.369Z",
-    "summary": {
-      "totalDays": 29,
-      "totalEntries": 29
-    },
     "productivity": {
       "distribution": {
-        "High": 29
+        "High": 7
       },
       "average": "4.00",
       "mostCommon": "High"
@@ -18,30 +16,35 @@
       "total": 5,
       "mostUsed": [
         [
-          "React",
-          7
+          "Python",
+          2
         ],
         [
           "TypeScript",
-          7
+          2
         ],
         [
           "JavaScript",
-          7
+          1
         ],
         [
-          "Python",
-          5
+          "React",
+          1
         ],
         [
           "Node.js",
-          3
+          1
         ]
       ]
     },
     "timeSpent": {
-      "total": 102,
-      "average": "3.52"
+      "total": 22,
+      "average": "3.14"
     }
+  },
+  "summary": {
+    "totalHours": 22,
+    "averageProductivity": "4.00",
+    "technologiesUsed": 5
   }
 }
