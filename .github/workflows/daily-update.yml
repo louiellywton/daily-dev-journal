@@ -1,9 +1,10 @@
 name: Daily Development Journal Update
 
 on:
-  schedule:
-    # Run daily at 9:00 AM WIB (2:00 AM UTC) for automated data processing
-    - cron: '0 2 * * *'
+  # DISABLED: Daily schedule automation stopped
+  # schedule:
+  #   # Run daily at 9:00 AM WIB (2:00 AM UTC) for automated data processing
+  #   - cron: '0 2 * * *'
   workflow_dispatch: # Allow manual triggering for testing and debugging
     inputs:
       force_update:
